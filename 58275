@@ -1,0 +1,516 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Pandas Lab Exercise (Kaggle Automobile Dataset)\n",
+    "\n",
+    "We shall now test your skills in using Pandas package. We will be using the [automobiles Dataset](https://www.kaggle.com/nisargpatel/automobiles/data) from Kaggle. \n",
+    "\n",
+    "Answer each question asked below wrt the automobiles dataset. Load pandas as pd and upload the Automobile.csv file as auto"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Load the Automobile dataset into variable \"auto\"**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "AUTOMOBILE\n",
+      "      symboling  normalized_losses         make fuel_type aspiration  \\\n",
+      "0            3                168  alfa-romero       gas        std   \n",
+      "1            3                168  alfa-romero       gas        std   \n",
+      "2            1                168  alfa-romero       gas        std   \n",
+      "3            2                164         audi       gas        std   \n",
+      "4            2                164         audi       gas        std   \n",
+      "..         ...                ...          ...       ...        ...   \n",
+      "196         -1                 95        volvo       gas        std   \n",
+      "197         -1                 95        volvo       gas      turbo   \n",
+      "198         -1                 95        volvo       gas        std   \n",
+      "199         -1                 95        volvo    diesel      turbo   \n",
+      "200         -1                 95        volvo       gas      turbo   \n",
+      "\n",
+      "    number_of_doors   body_style drive_wheels engine_location  wheel_base  \\\n",
+      "0               two  convertible          rwd           front        88.6   \n",
+      "1               two  convertible          rwd           front        88.6   \n",
+      "2               two    hatchback          rwd           front        94.5   \n",
+      "3              four        sedan          fwd           front        99.8   \n",
+      "4              four        sedan          4wd           front        99.4   \n",
+      "..              ...          ...          ...             ...         ...   \n",
+      "196            four        sedan          rwd           front       109.1   \n",
+      "197            four        sedan          rwd           front       109.1   \n",
+      "198            four        sedan          rwd           front       109.1   \n",
+      "199            four        sedan          rwd           front       109.1   \n",
+      "200            four        sedan          rwd           front       109.1   \n",
+      "\n",
+      "     ...  engine_size  fuel_system  bore  stroke compression_ratio horsepower  \\\n",
+      "0    ...          130         mpfi  3.47    2.68               9.0        111   \n",
+      "1    ...          130         mpfi  3.47    2.68               9.0        111   \n",
+      "2    ...          152         mpfi  2.68    3.47               9.0        154   \n",
+      "3    ...          109         mpfi  3.19    3.40              10.0        102   \n",
+      "4    ...          136         mpfi  3.19    3.40               8.0        115   \n",
+      "..   ...          ...          ...   ...     ...               ...        ...   \n",
+      "196  ...          141         mpfi  3.78    3.15               9.5        114   \n",
+      "197  ...          141         mpfi  3.78    3.15               8.7        160   \n",
+      "198  ...          173         mpfi  3.58    2.87               8.8        134   \n",
+      "199  ...          145          idi  3.01    3.40              23.0        106   \n",
+      "200  ...          141         mpfi  3.78    3.15               9.5        114   \n",
+      "\n",
+      "     peak_rpm city_mpg  highway_mpg  price  \n",
+      "0        5000       21           27  13495  \n",
+      "1        5000       21           27  16500  \n",
+      "2        5000       19           26  16500  \n",
+      "3        5500       24           30  13950  \n",
+      "4        5500       18           22  17450  \n",
+      "..        ...      ...          ...    ...  \n",
+      "196      5400       23           28  16845  \n",
+      "197      5300       19           25  19045  \n",
+      "198      5500       18           23  21485  \n",
+      "199      4800       26           27  22470  \n",
+      "200      5400       19           25  22625  \n",
+      "\n",
+      "[201 rows x 26 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "auto=pd.read_csv('Automobile.csv')\n",
+    "print(\"AUTOMOBILE\\n\",auto)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Check the head of the DataFrame.**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "FIRST FIVE ROWS OF AUTOMOBILE\n",
+      "   symboling  normalized_losses         make fuel_type aspiration  \\\n",
+      "0          3                168  alfa-romero       gas        std   \n",
+      "1          3                168  alfa-romero       gas        std   \n",
+      "2          1                168  alfa-romero       gas        std   \n",
+      "3          2                164         audi       gas        std   \n",
+      "4          2                164         audi       gas        std   \n",
+      "\n",
+      "  number_of_doors   body_style drive_wheels engine_location  wheel_base  ...  \\\n",
+      "0             two  convertible          rwd           front        88.6  ...   \n",
+      "1             two  convertible          rwd           front        88.6  ...   \n",
+      "2             two    hatchback          rwd           front        94.5  ...   \n",
+      "3            four        sedan          fwd           front        99.8  ...   \n",
+      "4            four        sedan          4wd           front        99.4  ...   \n",
+      "\n",
+      "   engine_size  fuel_system  bore  stroke compression_ratio horsepower  \\\n",
+      "0          130         mpfi  3.47    2.68               9.0        111   \n",
+      "1          130         mpfi  3.47    2.68               9.0        111   \n",
+      "2          152         mpfi  2.68    3.47               9.0        154   \n",
+      "3          109         mpfi  3.19    3.40              10.0        102   \n",
+      "4          136         mpfi  3.19    3.40               8.0        115   \n",
+      "\n",
+      "   peak_rpm city_mpg  highway_mpg  price  \n",
+      "0      5000       21           27  13495  \n",
+      "1      5000       21           27  16500  \n",
+      "2      5000       19           26  16500  \n",
+      "3      5500       24           30  13950  \n",
+      "4      5500       18           22  17450  \n",
+      "\n",
+      "[5 rows x 26 columns]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"FIRST FIVE ROWS OF AUTOMOBILE\")\n",
+    "print(auto.head())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**How many rows and columns are there?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "NUMBER OF ROWS AND COLUMNS IN AUTOMOBILE\n",
+      "\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(201, 26)"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "print(\"NUMBER OF ROWS AND COLUMNS IN AUTOMOBILE\\n\")\n",
+    "auto.shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**What is the average Price of all cars in the dataset?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "AVERAGE PRICE OF ALL CARS :  13207.129353233831\n"
+     ]
+    }
+   ],
+   "source": [
+    "mean_price=auto[\"price\"].mean()\n",
+    "print(\"AVERAGE PRICE OF ALL CARS : \",mean_price)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Which is the cheapest make and costliest make of car in the lot?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "THE CHEAPEST PRICE : 5118\n",
+      "THE CHEAPEST MAKE :  134    subaru\n",
+      "Name: make, dtype: object\n",
+      "\n",
+      "THE COSTLIEST PRICE : 45400\n",
+      "THE COSTLIEST MAKE :  71    mercedes-benz\n",
+      "Name: make, dtype: object\n"
+     ]
+    }
+   ],
+   "source": [
+    "min_price=auto['price'].min()\n",
+    "print(\"THE CHEAPEST PRICE :\",min_price)\n",
+    "r,c=np.where(auto==min_price)\n",
+    "print(\"THE CHEAPEST MAKE : \",auto.loc[r,'make'])\n",
+    "print()\n",
+    "max_price=auto['price'].max()\n",
+    "print(\"THE COSTLIEST PRICE :\",max_price)\n",
+    "rh,ch=np.where(auto==max_price)\n",
+    "print(\"THE COSTLIEST MAKE : \",auto.loc[rh,'make'])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**How many cars have horsepower greater than 100?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "NUMBER OF CARS HAVING HORSE POWER GREATER THAN 100 :  201\n"
+     ]
+    }
+   ],
+   "source": [
+    "hp=auto.apply(lambda x: True if x['horsepower']>30 else False,axis=1)\n",
+    "hpcars=len(hp[hp==True].index)\n",
+    "print(\"NUMBER OF CARS HAVING HORSE POWER GREATER THAN 100 : \",hpcars)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**How many hatchback cars are in the dataset ?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "HATCHBACK CARS \n",
+      "      symboling  normalized_losses         make fuel_type aspiration  \\\n",
+      "2            1                168  alfa-romero       gas        std   \n",
+      "17           2                121    chevrolet       gas        std   \n",
+      "18           1                 98    chevrolet       gas        std   \n",
+      "20           1                118        dodge       gas        std   \n",
+      "21           1                118        dodge       gas        std   \n",
+      "..         ...                ...          ...       ...        ...   \n",
+      "171         -1                 65       toyota       gas        std   \n",
+      "173         -1                 65       toyota       gas        std   \n",
+      "174          3                197       toyota       gas        std   \n",
+      "175          3                197       toyota       gas        std   \n",
+      "186          3                256   volkswagen       gas        std   \n",
+      "\n",
+      "    number_of_doors body_style drive_wheels engine_location  wheel_base  ...  \\\n",
+      "2               two  hatchback          rwd           front        94.5  ...   \n",
+      "17              two  hatchback          fwd           front        88.4  ...   \n",
+      "18              two  hatchback          fwd           front        94.5  ...   \n",
+      "20              two  hatchback          fwd           front        93.7  ...   \n",
+      "21              two  hatchback          fwd           front        93.7  ...   \n",
+      "..              ...        ...          ...             ...         ...  ...   \n",
+      "171            four  hatchback          fwd           front       102.4  ...   \n",
+      "173            four  hatchback          fwd           front       102.4  ...   \n",
+      "174             two  hatchback          rwd           front       102.9  ...   \n",
+      "175             two  hatchback          rwd           front       102.9  ...   \n",
+      "186             two  hatchback          fwd           front        94.5  ...   \n",
+      "\n",
+      "     engine_size  fuel_system  bore  stroke compression_ratio horsepower  \\\n",
+      "2            152         mpfi  2.68    3.47              9.00        154   \n",
+      "17            61         2bbl  2.91    3.03              9.50         48   \n",
+      "18            90         2bbl  3.03    3.11              9.60         70   \n",
+      "20            90         2bbl  2.97    3.23              9.41         68   \n",
+      "21            90         2bbl  2.97    3.23              9.40         68   \n",
+      "..           ...          ...   ...     ...               ...        ...   \n",
+      "171          122         mpfi  3.31    3.54              8.70         92   \n",
+      "173          122         mpfi  3.31    3.54              8.70         92   \n",
+      "174          171         mpfi  3.27    3.35              9.30        161   \n",
+      "175          171         mpfi  3.27    3.35              9.30        161   \n",
+      "186          109         mpfi  3.19    3.40              8.50         90   \n",
+      "\n",
+      "     peak_rpm city_mpg  highway_mpg  price  \n",
+      "2        5000       19           26  16500  \n",
+      "17       5100       47           53   5151  \n",
+      "18       5400       38           43   6295  \n",
+      "20       5500       37           41   5572  \n",
+      "21       5500       31           38   6377  \n",
+      "..        ...      ...          ...    ...  \n",
+      "171      4200       27           32   9988  \n",
+      "173      4200       27           32  11248  \n",
+      "174      5200       20           24  16558  \n",
+      "175      5200       19           24  15998  \n",
+      "186      5500       24           29   9980  \n",
+      "\n",
+      "[68 rows x 26 columns]\n",
+      "NUMBER OF HATCHBACK CARS :  68\n"
+     ]
+    }
+   ],
+   "source": [
+    "hb=auto[(auto['body_style']=='hatchback')]\n",
+    "print(\"HATCHBACK CARS \\n\",hb)\n",
+    "index=hb.index\n",
+    "print(\"NUMBER OF HATCHBACK CARS : \",len(index))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**What are the 3 most commonly found cars in the dataset?**\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "THE 3 MOST COMMONLY FOUND CARS \n",
+      "\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "['toyota', 'nissan', 'mazda']"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "print(\"THE 3 MOST COMMONLY FOUND CARS \\n\")\n",
+    "n=3\n",
+    "auto['make'].value_counts()[:n].index.tolist()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Someone purchased a car for 7099, what is the make of the car?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "MAKE OF THE CAR OF PRICE 7099 :  87    nissan\n",
+      "Name: make, dtype: object\n"
+     ]
+    }
+   ],
+   "source": [
+    "c7099=auto[(auto['price']==7099)]\n",
+    "print(\"MAKE OF THE CAR OF PRICE 7099 : \",c7099.loc[:,'make'])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Which cars are priced greater than 40000?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "CARS WHICH ARE PRICED GREATER THAN 40000 :\n",
+      " 15              bmw\n",
+      "70    mercedes-benz\n",
+      "71    mercedes-benz\n",
+      "Name: make, dtype: object\n"
+     ]
+    }
+   ],
+   "source": [
+    "cars40000=auto[(auto['price']>40000)]\n",
+    "print(\"CARS WHICH ARE PRICED GREATER THAN 40000 :\\n\",cars40000.loc[:,'make'])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Which are the cars that are both a sedan and priced less than 7000?**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Empty DataFrame\n",
+      "Columns: [symboling, normalized_losses, make, fuel_type, aspiration, number_of_doors, body_style, drive_wheels, engine_location, wheel_base, length, width, height, curb_weight, engine_type, number_of_cylinders, engine_size, fuel_system, bore, stroke, compression_ratio, horsepower, peak_rpm, city_mpg, highway_mpg, price]\n",
+      "Index: []\n",
+      "\n",
+      "[0 rows x 26 columns]\n",
+      "NUMBER OF CARS THAT ARE BOTH SEDAN AND LESS THAN 7000 : Series([], Name: make, dtype: int64)\n"
+     ]
+    }
+   ],
+   "source": [
+    "new_auto=auto[(auto['make']=='sedan')&(auto['price']<7000)]\n",
+    "print(new_auto)\n",
+    "print(\"NUMBER OF CARS THAT ARE BOTH SEDAN AND LESS THAN 7000 :\",new_auto['make'].value_counts())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### The END"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}
